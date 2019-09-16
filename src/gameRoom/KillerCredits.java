@@ -134,6 +134,7 @@ public class KillerCredits extends JPanel {
             @Override
             public boolean dispatchKeyEvent(final KeyEvent e) {
                 if (e.getKeyCode() == 27) {      
+                    t.restart();
                     frame.dispose();
                     KillerPanelPrincipal.menuRadio();
                 }
@@ -143,6 +144,12 @@ public class KillerCredits extends JPanel {
         KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(keyEventDispatcher);
     }
 
+    public static int closing() {
+        t.restart();
+        frame.dispose();
+        return 0;
+    }
+    
     /**
      * main de la clase que crea la ventana y añade el jPanel de los créditos
      *
@@ -156,7 +163,7 @@ public class KillerCredits extends JPanel {
                 frame = new JFrame();
                 frame.setTitle("Killer Game Credits");
                 frame.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frame.setDefaultCloseOperation(closing());
                 frame.setLocationRelativeTo(null);
                 frame.getContentPane().add(view);
                 frame.setUndecorated(true);
@@ -175,12 +182,13 @@ public class KillerCredits extends JPanel {
         //Timer que cierra los créditos sincronizado con el tiempo 
         //que tarda el texto en dejar de verse
         //También vuelve a poner la música de menú
-        t = new javax.swing.Timer(70000, new ActionListener() {
+        t = new javax.swing.Timer(74000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                t.stop();
+                t.restart();
                 frame.dispose();
                 KillerPanelPrincipal.menuRadio();
-                t.stop();
             }
         });
         t.start();
